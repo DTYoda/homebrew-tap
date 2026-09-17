@@ -5,11 +5,10 @@ Homebrew tap for [drop-zone](https://github.com/DTYoda/drop-zone), a peer-to-pee
 ## Install
 
 ```sh
-brew tap DTYoda/tap
-brew install drop-zone
+brew install DTYoda/tap/drop-zone
 ```
 
-Or `brew install DTYoda/tap/drop-zone`.
+The fully qualified name taps this repository and trusts only the drop-zone formula (required by Homebrew 7 for third-party taps). After that, `brew install drop-zone` works if you also run `brew trust --formula DTYoda/tap/drop-zone`.
 
 In a `Brewfile`:
 
