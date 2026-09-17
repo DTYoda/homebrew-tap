@@ -1,18 +1,27 @@
 # DTYoda Tap
 
-## How do I install these formulae?
+Homebrew tap for [drop-zone](https://github.com/DTYoda/drop-zone), a peer-to-peer terminal file transfer client.
 
-`brew install dtyoda/tap/<formula>`
+## Install
 
-Or `brew tap dtyoda/tap` and then `brew install <formula>`.
+```sh
+brew tap DTYoda/tap
+brew install drop-zone
+```
 
-Or, in a `brew bundle` `Brewfile`:
+Or `brew install DTYoda/tap/drop-zone`.
+
+In a `Brewfile`:
 
 ```ruby
 tap "dtyoda/tap"
-brew "<formula>"
+brew "drop-zone"
 ```
+
+The formula builds only the client (`-DDZ_BUILD_SERVER=OFF`). After install, run `drop-zone setup`.
+
+To follow `main` instead of the latest tag: `brew install --HEAD DTYoda/tap/drop-zone`.
 
 ## Documentation
 
-`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
+`brew help`, `man brew` or [Homebrew's documentation](https://docs.brew.sh).
