@@ -1,8 +1,24 @@
+# Homebrew formula for the drop-zone client.
+#
+# Builds only the client. The rendezvous server is an operator's daemon, not
+# something a `brew install` should place on a laptop; passing -DDZ_BUILD_SERVER=OFF
+# is what keeps it out of the bottle.
+#
+# The bottle is compiled without -march=native. Every CPU-specific fast path
+# (AES-NI vs ChaCha20) is selected at run time — see common/src/cpu.cpp — so a
+# bottle built on a machine with VAES still runs on one without, and still takes
+# the AES path where the hardware has it.
+#
+# This file is the copy kept next to the source. The installable tap lives at
+# https://github.com/DTYoda/homebrew-tap (brew tap DTYoda/tap). After tagging
+# a release, run packaging/homebrew/fill-stable.sh and paste url/sha256 here,
+# then copy this file to Formula/drop-zone.rb in that tap.
+
 class DropZone < Formula
   desc "Peer-to-peer terminal file transfer"
   homepage "https://github.com/DTYoda/drop-zone"
-  url "https://github.com/DTYoda/drop-zone/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "397a833fe68ee88a550f1dc5679a484f0554bfdc225a2a810931d9f54b0f5337"
+  url "https://github.com/DTYoda/drop-zone/archive/refs/tags/v1.1.0.tar.gz"
+  sha256 "d1d49077371352a3328a150cce108f7876ca793c2d5f37458ffb9bc630a14212"
   license "MIT"
   head "https://github.com/DTYoda/drop-zone.git", branch: "main"
 
@@ -31,6 +47,9 @@ class DropZone < Formula
   def caveats
     <<~EOS
       Run `drop-zone setup` once to create a username and identity.
+
+      Ephemeral groups (1.1+): `drop-zone accept --group=NAME` and
+      `drop-zone send FILE --group=NAME`.
     EOS
   end
 
@@ -41,6 +60,9 @@ class DropZone < Formula
     help = shell_output("#{bin}/drop-zone --help")
     assert_match "drop-zone setup", help
     assert_match "send FILE", help
+    assert_match "--group=NAME", help
     assert_match "set-server", help
+    assert_match "set-output", help
+    assert_match "set-public-password", help
   end
 end
